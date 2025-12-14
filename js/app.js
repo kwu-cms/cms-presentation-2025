@@ -96,9 +96,6 @@ function loadJSONFromFile(file) {
                 showSchedule = true;
                 hasOrderJson = true;
 
-                // theme-descriptionにクラスを追加
-                updateThemeDescriptionClass();
-
                 renderCards();
                 updateUI();
                 alert('JSONファイルから確定状態を読み込みました。');
@@ -106,9 +103,6 @@ function loadJSONFromFile(file) {
                 // 未確定の状態として扱う
                 cardsData = shuffleArray([...originalCardsData]);
                 showSchedule = false;
-
-                // theme-descriptionにクラスを追加
-                updateThemeDescriptionClass();
 
                 renderCards();
                 updateUI();
@@ -257,9 +251,6 @@ async function loadCSV() {
             throw new Error('CSVファイルにデータが含まれていません');
         }
 
-        // theme-descriptionにクラスを追加（データに含まれるクラスに基づく）
-        updateThemeDescriptionClass();
-
         renderCards();
         updateUI();
     } catch (error) {
@@ -272,34 +263,6 @@ async function loadCSV() {
                 '<p style="margin-bottom: 0.5rem;">エラー: ' + error.message + '</p>' +
                 '<p style="font-size: 0.9rem; color: #666;">data.csvファイルが存在することを確認してください。</p>' +
                 '</div>';
-        }
-    }
-}
-
-// theme-descriptionにクラスを追加（データに含まれるクラスに基づく）
-function updateThemeDescriptionClass() {
-    const themeDescription = document.querySelector('.theme-description');
-    if (!themeDescription) return;
-
-    // データに含まれるクラスを取得
-    const classesInData = new Set(cardsData.map(card => card.class));
-    const classList = Array.from(classesInData);
-
-    // 既存のクラスを削除
-    themeDescription.classList.remove('takawo', 'yao', 'yamashita');
-
-    // クラスが1つだけの場合はそのクラスを適用
-    if (classList.length === 1) {
-        const className = classMap[classList[0]];
-        if (className) {
-            themeDescription.classList.add(className);
-        }
-    }
-    // 複数のクラスが含まれている場合は最初のクラスを適用
-    else if (classList.length > 1) {
-        const className = classMap[classList[0]];
-        if (className) {
-            themeDescription.classList.add(className);
         }
     }
 }
