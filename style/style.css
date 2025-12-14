@@ -140,6 +140,7 @@ body::before {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+    border: 2px solid #041E40;
     border-radius: clamp(0.5rem, 1.5vh, 1rem);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.1);
 }
@@ -568,17 +569,17 @@ body::before {
 
 .card.yao {
     background: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 8px 32px rgba(242, 191, 94, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px rgba(230, 58, 70, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .card.yao:hover {
     background: rgba(255, 255, 255, 0.98);
-    box-shadow: 0 12px 48px rgba(242, 191, 94, 0.3), 0 4px 16px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 12px 48px rgba(230, 58, 70, 0.3), 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .card.yao .class-label {
-    background: #F2BF5E;
-    color: #1e1e1e;
+    background: #E63946;
+    color: white;
 }
 
 .card.yamashita {
@@ -593,6 +594,19 @@ body::before {
 
 .card.yamashita .class-label {
     background: #F28627;
+}
+
+/* theme-descriptionのクラスごとのボーダー色 */
+.theme-description.takawo {
+    border-color: #4895D9;
+}
+
+.theme-description.yao {
+    border-color: #E63946;
+}
+
+.theme-description.yamashita {
+    border-color: #F28627;
 }
 
 /* モバイル対応 */
@@ -846,17 +860,17 @@ body::before {
 
 .schedule-item.yao {
     background: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 8px 32px rgba(242, 191, 94, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px rgba(230, 58, 70, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .schedule-item.yao:hover {
     background: rgba(255, 255, 255, 0.98);
-    box-shadow: 0 12px 48px rgba(242, 191, 94, 0.3), 0 4px 16px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 12px 48px rgba(230, 58, 70, 0.3), 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .schedule-item.yao .class-label {
-    background: #F2BF5E;
-    color: #1e1e1e;
+    background: #E63946;
+    color: white;
 }
 
 .schedule-item.yamashita {
