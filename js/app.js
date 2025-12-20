@@ -14,6 +14,25 @@ const classMap = {
     '山下クラス': 'yamashita'
 };
 
+// 発表当日後の日付（2025/12/18以降）
+const PRESENTATION_END_DATE = new Date('2025-12-18T00:00:00');
+
+// URLがNotionかどうかを判定
+function isNotionUrl(url) {
+    return url && url.includes('notion.so');
+}
+
+// 使用するURLを決定（PDFのURLが存在する場合はPDFを使用）
+function getMaterialsUrl(card) {
+    // PDFのURLが存在する場合はPDFを使用
+    if (card.pdfUrl && card.pdfUrl.trim() !== '') {
+        return card.pdfUrl;
+    }
+
+    // PDFのURLがない場合は元のURLを使用
+    return card.materialsUrl;
+}
+
 // 確定状態を読み込む（JSONファイルから）
 async function loadConfirmedState() {
     try {
@@ -198,6 +217,7 @@ async function loadCSV() {
                     group: values[1],
                     theme: values[2],
                     materialsUrl: values[3],
+                    pdfUrl: values[4] || '', // PDFのURL（オプション）
                     order: i
                 };
                 cardsData.push(card);
@@ -379,7 +399,7 @@ function createScheduleItem(card, order) {
 
     // クリックイベント
     item.addEventListener('click', () => {
-        window.open(card.materialsUrl, '_blank');
+        window.open(getMaterialsUrl(card), '_blank');
     });
 
     const orderDiv = document.createElement('div');
@@ -490,7 +510,7 @@ function createCardElement(card, index, showOrder = true) {
 
     // クリックイベント
     cardDiv.addEventListener('click', () => {
-        window.open(card.materialsUrl, '_blank');
+        window.open(getMaterialsUrl(card), '_blank');
     });
 
     // 発表順（表示用の順番はindex + 1）
