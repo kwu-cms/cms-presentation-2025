@@ -291,6 +291,27 @@ body::before {
     line-height: 1.6;
 }
 
+.theme-youtube-container {
+    width: 100%;
+    margin-top: clamp(1.5rem, 3vh, 2rem);
+    position: relative;
+    padding-bottom: 56.25%;
+    /* 16:9アスペクト比 */
+    height: 0;
+    overflow: hidden;
+    border-radius: clamp(0.5rem, 1vh, 0.75rem);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.theme-youtube-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
 .header-controls {
     margin-top: clamp(1rem, 2vh, 1.5rem);
     display: flex;
@@ -596,6 +617,70 @@ body::before {
     background: #F28627;
 }
 
+/* アコーディオンコンテンツ */
+.card-accordion-content {
+    grid-column: 1 / -1;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+    padding: 0 clamp(1rem, 3vh, 2rem);
+}
+
+.card.card-open .card-accordion-content {
+    max-height: 2000px;
+    padding: clamp(1rem, 2vh, 1.5rem) clamp(1rem, 3vh, 2rem);
+    border-top: 2px solid rgba(4, 30, 64, 0.1);
+    margin-top: clamp(0.5rem, 1vh, 1rem);
+}
+
+.card-youtube-container {
+    width: 100%;
+    margin-bottom: clamp(1rem, 2vh, 1.5rem);
+    position: relative;
+    padding-bottom: 56.25%;
+    /* 16:9アスペクト比 */
+    height: 0;
+    overflow: hidden;
+    border-radius: clamp(0.5rem, 1vh, 0.75rem);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-youtube-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.card-materials-button {
+    width: 100%;
+    padding: clamp(0.75rem, 1.5vh, 1rem) clamp(1.5rem, 3vw, 2rem);
+    font-size: clamp(0.9rem, 2.2vw, 1.1rem);
+    font-weight: 700;
+    font-family: 'Noto Sans JP', sans-serif;
+    color: white;
+    background: #041E40;
+    border: 2px solid #041E40;
+    border-radius: clamp(0.4rem, 0.8vh, 0.6rem);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.05em;
+    box-shadow: 0 2px 4px rgba(4, 30, 64, 0.2);
+}
+
+.card-materials-button:hover {
+    background: #4895D9;
+    border-color: #4895D9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(72, 149, 217, 0.3);
+}
+
+.card-materials-button:active {
+    transform: translateY(0);
+}
+
 
 /* モバイル対応 */
 @media (max-width: 768px) {
@@ -662,6 +747,10 @@ body::before {
 
     .theme-qr-content {
         display: none;
+    }
+
+    .theme-youtube-container {
+        margin-top: clamp(0.75rem, 1.5vh, 1rem);
     }
 
     .theme-course-title {
@@ -736,6 +825,14 @@ body::before {
     .card-order {
         font-size: clamp(1.5rem, 8vw, 2.5rem);
         min-width: 2.5rem;
+    }
+
+    .card-accordion-content {
+        padding: 0 1rem;
+    }
+
+    .card.card-open .card-accordion-content {
+        padding: 1rem;
     }
 }
 
@@ -875,6 +972,70 @@ body::before {
     background: #F28627;
 }
 
+/* スケジュール表示のアコーディオンコンテンツ */
+.schedule-accordion-content {
+    grid-column: 1 / -1;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+    padding: 0 clamp(1.5rem, 3vh, 2rem);
+}
+
+.schedule-item.schedule-item-open .schedule-accordion-content {
+    max-height: 2000px;
+    padding: clamp(1rem, 2vh, 1.5rem) clamp(1.5rem, 3vh, 2rem);
+    border-top: 2px solid rgba(4, 30, 64, 0.1);
+    margin-top: clamp(0.5rem, 1vh, 1rem);
+}
+
+.schedule-youtube-container {
+    width: 100%;
+    margin-bottom: clamp(1rem, 2vh, 1.5rem);
+    position: relative;
+    padding-bottom: 56.25%;
+    /* 16:9アスペクト比 */
+    height: 0;
+    overflow: hidden;
+    border-radius: clamp(0.5rem, 1vh, 0.75rem);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.schedule-youtube-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.schedule-materials-button {
+    width: 100%;
+    padding: clamp(0.75rem, 1.5vh, 1rem) clamp(1.5rem, 3vw, 2rem);
+    font-size: clamp(0.9rem, 2.2vw, 1.1rem);
+    font-weight: 700;
+    font-family: 'Noto Sans JP', sans-serif;
+    color: white;
+    background: #041E40;
+    border: 2px solid #041E40;
+    border-radius: clamp(0.4rem, 0.8vh, 0.6rem);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.05em;
+    box-shadow: 0 2px 4px rgba(4, 30, 64, 0.2);
+}
+
+.schedule-materials-button:hover {
+    background: #4895D9;
+    border-color: #4895D9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(72, 149, 217, 0.3);
+}
+
+.schedule-materials-button:active {
+    transform: translateY(0);
+}
+
 /* モバイル対応（スケジュール表示） */
 @media (max-width: 768px) {
     .schedule-section-header h2 {
@@ -898,6 +1059,14 @@ body::before {
 
     .schedule-presenters {
         font-size: clamp(0.9rem, 2.2vw, 1.1rem);
+    }
+
+    .schedule-accordion-content {
+        padding: 0 1rem;
+    }
+
+    .schedule-item.schedule-item-open .schedule-accordion-content {
+        padding: 1rem;
     }
 }
 

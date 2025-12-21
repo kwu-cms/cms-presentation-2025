@@ -33,6 +33,32 @@ function getMaterialsUrl(card) {
     return card.materialsUrl;
 }
 
+// YouTubeのURLを埋め込み用に変換
+function convertToEmbedUrl(youtubeUrl) {
+    if (!youtubeUrl || youtubeUrl.trim() === '') {
+        return '';
+    }
+
+    // youtu.be/xxx 形式を変換
+    if (youtubeUrl.includes('youtu.be/')) {
+        const videoId = youtubeUrl.split('youtu.be/')[1].split('?')[0].split('&')[0];
+        return `https://www.youtube.com/embed/${videoId}`;
+    }
+
+    // youtube.com/watch?v=xxx 形式を変換
+    if (youtubeUrl.includes('youtube.com/watch?v=')) {
+        const videoId = youtubeUrl.split('v=')[1].split('&')[0];
+        return `https://www.youtube.com/embed/${videoId}`;
+    }
+
+    // 既に埋め込み形式の場合はそのまま
+    if (youtubeUrl.includes('youtube.com/embed/')) {
+        return youtubeUrl;
+    }
+
+    return youtubeUrl;
+}
+
 // 確定状態を読み込む（JSONファイルから）
 async function loadConfirmedState() {
     try {
@@ -216,8 +242,9 @@ async function loadCSV() {
                     class: values[0],
                     group: values[1],
                     theme: values[2],
-                    materialsUrl: values[3],
-                    pdfUrl: values[4] || '', // PDFのURL（オプション）
+                    youtubeUrl: values[3] || '', // YouTubeのURL（オプション）
+                    materialsUrl: values[4] || '', // 資料のURL（オプション）
+                    pdfUrl: values[5] || '', // PDFのURL（オプション）
                     order: i
                 };
                 cardsData.push(card);
@@ -397,11 +424,6 @@ function createScheduleItem(card, order) {
     const item = document.createElement('div');
     item.className = `schedule-item ${classMap[card.class] || ''}`;
 
-    // クリックイベント
-    item.addEventListener('click', () => {
-        window.open(getMaterialsUrl(card), '_blank');
-    });
-
     const orderDiv = document.createElement('div');
     orderDiv.className = 'schedule-order';
     orderDiv.textContent = order;
@@ -431,6 +453,65 @@ function createScheduleItem(card, order) {
     contentDiv.appendChild(themeDiv);
 
     item.appendChild(contentDiv);
+
+    // アコーディオンコンテンツ
+    const accordionContent = document.createElement('div');
+    accordionContent.className = 'schedule-accordion-content';
+
+    // YouTube動画がある場合
+    if (card.youtubeUrl && card.youtubeUrl.trim() !== '') {
+        const youtubeEmbedUrl = convertToEmbedUrl(card.youtubeUrl);
+        if (youtubeEmbedUrl) {
+            const youtubeContainer = document.createElement('div');
+            youtubeContainer.className = 'schedule-youtube-container';
+
+            const youtubeIframe = document.createElement('iframe');
+            youtubeIframe.src = youtubeEmbedUrl;
+            youtubeIframe.frameBorder = '0';
+            youtubeIframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+            youtubeIframe.allowFullscreen = true;
+            youtubeIframe.className = 'schedule-youtube-iframe';
+
+            youtubeContainer.appendChild(youtubeIframe);
+            accordionContent.appendChild(youtubeContainer);
+        }
+    }
+
+    // スライド資料ボタン
+    const materialsUrl = getMaterialsUrl(card);
+    if (materialsUrl && materialsUrl.trim() !== '') {
+        const materialsButton = document.createElement('button');
+        materialsButton.className = 'schedule-materials-button';
+        materialsButton.textContent = '発表資料';
+        materialsButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            window.open(materialsUrl, '_blank');
+        });
+        accordionContent.appendChild(materialsButton);
+    }
+
+    item.appendChild(accordionContent);
+
+    // クリックイベント（アコーディオンの開閉）
+    item.addEventListener('click', (e) => {
+        // ボタンクリック時はアコーディオンを閉じない
+        if (e.target.closest('.schedule-materials-button')) {
+            return;
+        }
+
+        // アコーディオンの開閉
+        const isOpen = item.classList.contains('schedule-item-open');
+        if (isOpen) {
+            item.classList.remove('schedule-item-open');
+        } else {
+            // 他のアイテムを閉じる
+            document.querySelectorAll('.schedule-item.schedule-item-open').forEach(openItem => {
+                openItem.classList.remove('schedule-item-open');
+            });
+            item.classList.add('schedule-item-open');
+        }
+    });
+
     return item;
 }
 
@@ -508,11 +589,6 @@ function createCardElement(card, index, showOrder = true) {
     cardDiv.className = `card ${classMap[card.class] || ''}`;
     cardDiv.setAttribute('data-order', card.order);
 
-    // クリックイベント
-    cardDiv.addEventListener('click', () => {
-        window.open(getMaterialsUrl(card), '_blank');
-    });
-
     // 発表順（表示用の順番はindex + 1）
     // 確定していない場合は非表示
     if (showOrder) {
@@ -554,6 +630,64 @@ function createCardElement(card, index, showOrder = true) {
     contentDiv.appendChild(themeDiv);
 
     cardDiv.appendChild(contentDiv);
+
+    // アコーディオンコンテンツ
+    const accordionContent = document.createElement('div');
+    accordionContent.className = 'card-accordion-content';
+
+    // YouTube動画がある場合
+    if (card.youtubeUrl && card.youtubeUrl.trim() !== '') {
+        const youtubeEmbedUrl = convertToEmbedUrl(card.youtubeUrl);
+        if (youtubeEmbedUrl) {
+            const youtubeContainer = document.createElement('div');
+            youtubeContainer.className = 'card-youtube-container';
+
+            const youtubeIframe = document.createElement('iframe');
+            youtubeIframe.src = youtubeEmbedUrl;
+            youtubeIframe.frameBorder = '0';
+            youtubeIframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+            youtubeIframe.allowFullscreen = true;
+            youtubeIframe.className = 'card-youtube-iframe';
+
+            youtubeContainer.appendChild(youtubeIframe);
+            accordionContent.appendChild(youtubeContainer);
+        }
+    }
+
+    // スライド資料ボタン
+    const materialsUrl = getMaterialsUrl(card);
+    if (materialsUrl && materialsUrl.trim() !== '') {
+        const materialsButton = document.createElement('button');
+        materialsButton.className = 'card-materials-button';
+        materialsButton.textContent = '発表資料';
+        materialsButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            window.open(materialsUrl, '_blank');
+        });
+        accordionContent.appendChild(materialsButton);
+    }
+
+    cardDiv.appendChild(accordionContent);
+
+    // クリックイベント（アコーディオンの開閉）
+    cardDiv.addEventListener('click', (e) => {
+        // ボタンクリック時はアコーディオンを閉じない
+        if (e.target.closest('.card-materials-button')) {
+            return;
+        }
+
+        // アコーディオンの開閉
+        const isOpen = cardDiv.classList.contains('card-open');
+        if (isOpen) {
+            cardDiv.classList.remove('card-open');
+        } else {
+            // 他のカードを閉じる
+            document.querySelectorAll('.card.card-open').forEach(openCard => {
+                openCard.classList.remove('card-open');
+            });
+            cardDiv.classList.add('card-open');
+        }
+    });
 
     return cardDiv;
 }
