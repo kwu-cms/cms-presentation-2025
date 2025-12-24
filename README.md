@@ -2,6 +2,11 @@
 
 メディア表現学科1年次「メディア表現発展演習Ⅱ」の発表順を決定・表示するWebアプリケーションです。
 
+## 公開URL
+
+- **3クラス版（高尾・八尾・山下クラス）**: [https://takawo.github.io/cms-presentation-2025/index.html](https://takawo.github.io/cms-presentation-2025/index.html)
+- **5クラス版**: [https://takawo.github.io/cms-presentation-2025/index_5classes.html](https://takawo.github.io/cms-presentation-2025/index_5classes.html)
+
 ## 機能
 
 - CSVファイルから発表グループの情報を読み込み
@@ -12,10 +17,12 @@
 
 ## ファイル構成
 
-- `index.html` - メインHTMLファイル
-- `style.css` - スタイルシート
-- `app.js` - メインJavaScriptファイル
-- `data.csv` - 発表グループのデータ（CSV形式）
+- `index.html` - メインHTMLファイル（3クラス版）
+- `index_5classes.html` - 5クラス版HTMLファイル
+- `style/style.css` - スタイルシート
+- `js/app.js` - メインJavaScriptファイル
+- `data/data.csv` - 発表グループのデータ（CSV形式、3クラス版）
+- `data/data_5classes.csv` - 発表グループのデータ（CSV形式、5クラス版）
 
 ## GitHub Pagesでの公開方法
 
@@ -56,4 +63,3 @@ class,group,theme,presenters,materials_url
 ## ライセンス
 
 このプロジェクトは教育目的で使用されています。
-
