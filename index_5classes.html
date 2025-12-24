@@ -11,6 +11,132 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style/style.css">
     <style>
+        .sticky-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: linear-gradient(
+                135deg,
+                rgba(61, 64, 112, 0.80) 0%,
+                rgba(72, 149, 217, 0.80) 20%,
+                rgba(139, 92, 246, 0.80) 40%,
+                rgba(230, 58, 70, 0.80) 60%,
+                rgba(242, 134, 39, 0.80) 80%,
+                rgba(72, 149, 217, 0.80) 100%
+            );
+            background-size: 400% 400%;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            padding: clamp(0.75rem, 1.5vh, 1rem) clamp(1rem, 2vw, 2rem);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .sticky-header.show {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .sticky-header-content {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: clamp(1rem, 2vw, 1.5rem);
+        }
+
+        .sticky-header-title {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            font-weight: 700;
+            color: white;
+            margin: 0;
+        }
+
+        .sticky-header-theme {
+            font-size: clamp(0.85rem, 2vw, 1.1rem);
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0;
+            flex: 1;
+            text-align: right;
+        }
+
+        @media (max-width: 768px) {
+            .sticky-header-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .sticky-header-theme {
+                text-align: left;
+                font-size: clamp(0.8rem, 1.8vw, 1rem);
+            }
+        }
+
+        .theme-description {
+            background: linear-gradient(
+                135deg,
+                rgba(61, 64, 112, 0.80) 0%,
+                rgba(72, 149, 217, 0.80) 20%,
+                rgba(139, 92, 246, 0.80) 40%,
+                rgba(230, 58, 70, 0.80) 60%,
+                rgba(242, 134, 39, 0.80) 80%,
+                rgba(72, 149, 217, 0.80) 100%
+            );
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: calc(clamp(2rem, 4vh, 2.5rem) + 15px);
+        }
+
+        .theme-description .theme-course-title,
+        .theme-description .theme-main,
+        .theme-description .theme-method,
+        .theme-description .theme-process,
+        .theme-description .card-instruction {
+            color: white;
+        }
+
+        .theme-description .theme-label {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .theme-description .theme-method strong,
+        .theme-description .theme-process strong {
+            color: white;
+        }
+
+        .theme-description .theme-method::before,
+        .theme-description .theme-process::before {
+            color: white;
+        }
+
+        .theme-content-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+
         .groups-container {
             width: 100%;
             max-width: 1200px;
@@ -233,15 +359,16 @@
 </head>
 
 <body>
+    <div class="sticky-header" id="sticky-header">
+        <div class="sticky-header-content">
+            <h1 class="sticky-header-title">メディア表現入門演習Ⅱ</h1>
+            <p class="sticky-header-theme">「女性が活躍できる社会のために私たちができること」</p>
+        </div>
+    </div>
     <div class="container">
         <header class="header">
             <div class="theme-description">
                 <h1 class="theme-course-title">メディア表現入門演習Ⅱ</h1>
-                <div class="theme-course-info">
-                    <span class="theme-classes">5クラス</span>
-                    <span class="theme-separator">|</span>
-                    <span class="theme-venue">発表一覧</span>
-                </div>
                 <div class="theme-content-wrapper">
                     <div class="theme-text-content">
                         <p class="theme-main">
@@ -308,9 +435,19 @@
             }
             const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg'];
             const lowerUrl = url.toLowerCase();
-            return imageExtensions.some(ext => lowerUrl.includes(ext)) ||
-                lowerUrl.includes('image') ||
-                lowerUrl.includes('img');
+            // 画像拡張子で終わる場合
+            if (imageExtensions.some(ext => lowerUrl.endsWith(ext) || lowerUrl.includes(ext))) {
+                return true;
+            }
+            // images/で始まる相対パスの場合
+            if (lowerUrl.startsWith('images/')) {
+                return true;
+            }
+            // imageやimgを含む場合
+            if (lowerUrl.includes('image') || lowerUrl.includes('img')) {
+                return true;
+            }
+            return false;
         }
 
         // YouTubeのURLを埋め込み用に変換
@@ -456,7 +593,6 @@
                 button.className = 'group-materials-button';
                 button.setAttribute('href', materialsUrl);
                 button.setAttribute('target', '_blank');
-                button.setAttribute('rel', 'noopener noreferrer');
                 button.textContent = '発表資料';
                 card.appendChild(button);
             }
@@ -530,9 +666,37 @@
             }
         }
 
+        // スクロール時にコンパクトなstickyヘッダーを表示
+        let isSticky = false;
+        let ticking = false;
+
+        function handleScroll() {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const stickyHeader = document.getElementById('sticky-header');
+                    const scrollDownThreshold = 200; // 下にスクロールして200px超えたらsticky
+                    const scrollUpThreshold = 150; // 上にスクロールして150px以下になったら解除（ヒステリシス）
+
+                    if (!isSticky && window.scrollY > scrollDownThreshold) {
+                        stickyHeader.classList.add('show');
+                        isSticky = true;
+                    } else if (isSticky && window.scrollY < scrollUpThreshold) {
+                        stickyHeader.classList.remove('show');
+                        isSticky = false;
+                    }
+
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+
         // ページ読み込み時にCSVを読み込む
         document.addEventListener('DOMContentLoaded', () => {
             loadCSV();
+            
+            // スクロールイベントリスナーを追加
+            window.addEventListener('scroll', handleScroll);
         });
     </script>
 </body>

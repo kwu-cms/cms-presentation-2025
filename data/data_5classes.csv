@@ -1,7 +1,7 @@
 class,group,theme,presentation_url,materials_url,pdf_url
-水野クラス,グループA,女性が活躍できる社会のために私たちができること,,https://example.com/mizuno_group_a.pdf,
-水野クラス,グループB,女性が活躍できる社会のために私たちができること,,https://example.com/mizuno_group_b.pdf,
-水野クラス,グループC,女性が活躍できる社会のために私たちができること,,https://example.com/mizuno_group_c.pdf,
+水野クラス,グループA,ケア労働が社会進出の役立つのか？,images/mizuno_group_a.jpg,https://www.dropbox.com/scl/fi/q36h05brl30u7dvr0yakw/A.pptx?rlkey=zl66cvccai4f1181v5glbapyd&dl=0,pdf/mizuno_group_a.pdf
+水野クラス,グループB,成長期におけるジェンダー教育論,images/mizuno_group_b.jpg,https://www.dropbox.com/scl/fi/2qrtw5fz6y5fci8e5m2su/B.pptx?rlkey=z5fe74umpy6pv3c98ymvt18jb&dl=0,pdf/mizuno_group_b.pdf
+水野クラス,グループC,日本に北欧におけるジェンダー格差とその解決策,images/mizuno_group_c.png,https://www.dropbox.com/scl/fi/b1gjon1uy8y2e12ia4t9k/C.pptx?rlkey=k1b7fpclaab34zfd7l3e77afn&dl=0,pdf/mizuno_group_c.pdf
 井口クラス,グループA,女性が活躍できる社会のために私たちができること,,https://example.com/iguchi_group_a.pdf,
 井口クラス,グループB,女性が活躍できる社会のために私たちができること,,https://example.com/iguchi_group_b.pdf,
 井口クラス,グループC,女性が活躍できる社会のために私たちができること,,https://example.com/iguchi_group_c.pdf,
@@ -14,4 +14,3 @@ class,group,theme,presentation_url,materials_url,pdf_url
 山下クラス,1班,女性が社会で活躍するために私たちができること,https://youtu.be/cIyNWmBy-lI,https://www.notion.so/2b73283824a88068b9f8c62ce88def08,pdf/yamashita_group_a.pdf
 山下クラス,2班,女性が活躍するために私たちができること,https://youtu.be/FY7yMp0Xm9E,https://konanwu-my.sharepoint.com/:p:/g/personal/ka225023_konan-wu_ac_jp/EaGfRZlXIxxHh5Zc3M0pDfEBGtIKbW0Y4t0pLy38xy3BVg?e=1qcbB3,pdf/yamashita_group_b.pdf
 山下クラス,3班,女性が社会で活躍するために私たちが出来ること,https://youtu.be/fjk-Ml36-5g,https://konanwu-my.sharepoint.com/:p:/g/personal/ka225008_konan-wu_ac_jp/EQPxCtHraGtPq9SnUh2qzUIBH7lF3cp92vkSAWUJgYJ7Iw?e=fzXDfm,pdf/yamashita_group_c.pdf
-
