@@ -259,8 +259,9 @@ function createGroupCard(group) {
     if (materialsUrl && materialsUrl.trim() !== '') {
         const button = document.createElement('a');
         button.className = 'group-materials-button';
-        button.setAttribute('href', materialsUrl);
-        button.setAttribute('target', '_blank');
+        button.href = materialsUrl;
+        button.target = '_blank';
+        button.rel = 'noopener noreferrer';
         button.innerHTML = '発表資料 <i class="fa-solid fa-arrow-up-right-from-square"></i>';
         card.appendChild(button);
     }
