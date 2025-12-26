@@ -4,8 +4,7 @@
 
 ## 公開URL
 
-- **3クラス版（高尾・八尾・山下クラス）**: [https://takawo.github.io/cms-presentation-2025/index.html](https://takawo.github.io/cms-presentation-2025/index.html)
-- **5クラス版**: [https://takawo.github.io/cms-presentation-2025/index_5classes.html](https://takawo.github.io/cms-presentation-2025/index_5classes.html)
+- https://kwu-cms.github.io/cms-presentation-2025/
 
 ## 機能
 
