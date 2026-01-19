@@ -4,7 +4,7 @@
 
 ## 公開URL
 
-- https://kwu-cms.github.io/cms-presentation-2025/
+- https://kwu-cms.github.io/cms-presentation/
 
 ## 機能
 
